@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie AI Search</title>
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header-content">
+      <div>
+        <h1>Movie AI Search</h1>
+        <p>Busque filmes por significado, gênero, clima, ator, tema ou ideia.</p>
+      </div>
+      <div class="status-box">
+        <span id="apiStatus">Verificando API...</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h2>O que você quer assistir?</h2>
+
+      <form id="searchForm" class="search-form">
+        <input
+          id="searchInput"
+          type="text"
+          placeholder="Ex: filme de corrida, suspense psicológico, ficção científica no espaço..."
+          autocomplete="off"
+        />
+
+        <select id="typeSelect">
+          <option value="">Tudo</option>
+          <option value="FILME">Filmes</option>
+          <option value="SERIE">Séries</option>
+        </select>
+
+        <button type="submit">Buscar</button>
+      </form>
+
+      <div class="quick-searches">
+        <button data-query="filme de corrida com carros">Corrida</button>
+        <button data-query="suspense psicológico sombrio">Suspense psicológico</button>
+        <button data-query="ficção científica no espaço">Ficção científica</button>
+        <button data-query="ação com vingança">Ação com vingança</button>
+        <button data-query="filme clássico antigo">Clássicos</button>
+      </div>
+    </section>
+
+    <section class="stats-grid">
+      <div class="stat-card"><span id="statFilmes">0</span><p>Filmes</p></div>
+      <div class="stat-card"><span id="statSeries">0</span><p>Séries</p></div>
+      <div class="stat-card"><span id="statPessoas">0</span><p>Pessoas</p></div>
+      <div class="stat-card"><span id="statGeneros">0</span><p>Gêneros</p></div>
+    </section>
+
+    <section class="results-header">
+      <h2 id="sectionTitle">Populares no banco</h2>
+      <p id="resultsCount"></p>
+    </section>
+
+    <section id="results" class="cards-grid"></section>
+  </main>
+
+  <footer class="footer">
+    <p>Movie AI Search • PostgreSQL + pgvector + FastAPI + Node.js</p>
+  </footer>
+
+  <script src="./js/app.js"></script>
+</body>
+</html>
