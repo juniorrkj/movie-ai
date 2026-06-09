@@ -118,57 +118,66 @@ GENERIC_SEARCH_TERMS = {
 # A busca final combina semântica + gênero + texto + popularidade.
 INTENT_RULES = [
     {
+        "name": "terror",
         "keys": {"terror", "horror", "assustador", "assustadora", "medo", "sobrenatural", "monstro", "monstros"},
         "genres": {"terror", "thriller", "misterio"},
-        "terms": {"terror", "horror", "medo", "assustador", "assustadora", "sobrenatural", "monstro", "monstros", "assombrado", "assombrada"}
+        "terms": {"terror", "horror", "medo", "assustador", "assustadora", "sobrenatural", "monstro", "monstros", "assombrado", "assombrada", "macabro", "macabra"}
     },
     {
-        "keys": {"psicologico", "psicologica", "mente", "paranoia", "obsessao", "obsessão", "trauma"},
+        "name": "psicologico",
+        "keys": {"psicologico", "psicologica", "psicológico", "psicológica", "mente", "paranoia", "obsessao", "obsessão", "trauma"},
         "genres": {"thriller", "misterio", "drama", "terror"},
-        "terms": {"psicologico", "psicológico", "psicologica", "psicológica", "mente", "paranoia", "obsessao", "obsessão", "trauma", "surto"}
+        "terms": {"psicologico", "psicológico", "psicologica", "psicológica", "mente", "paranoia", "obsessao", "obsessão", "trauma", "surto", "loucura", "mental"}
     },
     {
+        "name": "suspense",
         "keys": {"suspense", "thriller", "investigacao", "investigação", "misterio", "mistério"},
         "genres": {"thriller", "misterio", "crime"},
-        "terms": {"suspense", "thriller", "investigacao", "investigação", "misterio", "mistério", "detetive", "crime", "assassinato"}
+        "terms": {"suspense", "thriller", "investigacao", "investigação", "misterio", "mistério", "detetive", "crime", "assassinato", "segredo"}
     },
     {
+        "name": "veiculos_corrida",
         "keys": {"carro", "carros", "corrida", "corridas", "velocidade", "piloto", "pilotos", "motorista"},
         "genres": {"acao", "aventura", "crime"},
-        "terms": {"carro", "carros", "corrida", "corridas", "velocidade", "piloto", "pilotos", "motorista", "automovel", "automóvel", "veiculo", "veículo"}
+        "terms": {"carro", "carros", "corrida", "corridas", "velocidade", "piloto", "pilotos", "motorista", "automovel", "automóvel", "veiculo", "veículo", "perseguicao", "perseguição"}
     },
     {
+        "name": "acao",
         "keys": {"acao", "ação", "luta", "lutas", "tiro", "explosao", "explosão", "vinganca", "vingança"},
         "genres": {"acao", "aventura", "crime", "thriller"},
-        "terms": {"acao", "ação", "luta", "lutas", "tiro", "explosao", "explosão", "vinganca", "vingança", "perseguicao", "perseguição"}
+        "terms": {"acao", "ação", "luta", "lutas", "tiro", "explosao", "explosão", "vinganca", "vingança", "perseguicao", "perseguição", "combate"}
     },
     {
-        "keys": {"espaco", "espaço", "alien", "aliens", "futuro", "robo", "robô", "robos", "robôs"},
-        "genres": {"ficcao cientifica", "aventura", "acao"},
-        "terms": {"espaco", "espaço", "alien", "aliens", "futuro", "robo", "robô", "robos", "robôs", "planeta", "galaxia", "galáxia"}
+        "name": "espaco_ficcao",
+        "keys": {"espaco", "espaço", "sideral", "alien", "aliens", "futuro", "robo", "robô", "robos", "robôs", "nave", "naves", "astronauta", "galaxia", "galáxia", "planeta"},
+        "genres": {"ficcao cientifica", "ficção científica", "aventura", "acao", "ação"},
+        "terms": {"espaco", "espaço", "sideral", "alien", "aliens", "futuro", "robo", "robô", "robos", "robôs", "planeta", "planetas", "galaxia", "galáxia", "nave", "naves", "astronauta", "astronautas", "universo", "cosmos", "missao espacial", "missão espacial"}
     },
     {
+        "name": "romance",
         "keys": {"romance", "amor", "casal", "namoro", "apaixonado", "apaixonada"},
-        "genres": {"romance", "drama", "comedia"},
-        "terms": {"romance", "amor", "casal", "namoro", "apaixonado", "apaixonada", "relacionamento"}
+        "genres": {"romance", "drama", "comedia", "comédia"},
+        "terms": {"romance", "amor", "casal", "namoro", "apaixonado", "apaixonada", "relacionamento", "paixao", "paixão"}
     },
     {
+        "name": "comedia",
         "keys": {"engracado", "engraçado", "comedia", "comédia", "rir", "humor"},
-        "genres": {"comedia"},
-        "terms": {"engracado", "engraçado", "comedia", "comédia", "rir", "humor", "divertido", "divertida"}
+        "genres": {"comedia", "comédia"},
+        "terms": {"engracado", "engraçado", "comedia", "comédia", "rir", "humor", "divertido", "divertida", "engraçada", "engraçado"}
     },
     {
-        "keys": {"crianca", "criança", "criancas", "crianças", "familia", "família", "infantil"},
-        "genres": {"familia", "animacao", "aventura", "fantasia"},
-        "terms": {"crianca", "criança", "criancas", "crianças", "familia", "família", "infantil", "animação", "animacao"}
+        "name": "familia_infantil",
+        "keys": {"crianca", "criança", "criancas", "crianças", "familia", "família", "familiar", "infantil"},
+        "genres": {"familia", "família", "animacao", "animação", "aventura", "fantasia"},
+        "terms": {"crianca", "criança", "criancas", "crianças", "familia", "família", "familiar", "infantil", "animação", "animacao", "pais", "filhos", "filhas", "criançada"}
     },
     {
+        "name": "guerra",
         "keys": {"guerra", "soldado", "soldados", "militar", "exercito", "exército"},
-        "genres": {"guerra", "drama", "historia", "acao"},
-        "terms": {"guerra", "soldado", "soldados", "militar", "exercito", "exército", "batalha"}
+        "genres": {"guerra", "drama", "historia", "história", "acao", "ação"},
+        "terms": {"guerra", "soldado", "soldados", "militar", "exercito", "exército", "batalha", "combate"}
     },
 ]
-
 
 def normalize_text(text: str) -> str:
     if not text:
@@ -199,22 +208,43 @@ def build_query_profile(q: str):
     """
     Transforma a frase do usuário em sinais de busca.
 
+    A diferença importante desta versão:
+    - não trata a busca como "termo A OU termo B" apenas;
+    - separa a frase em grupos de intenção;
+    - depois o rerank prioriza resultados que batem em mais de um grupo.
+
     Exemplo:
-    "terror psicológico" vira:
-    - tokens: terror, psicologico
-    - gêneros prováveis: Terror, Thriller, Mistério, Drama
-    - termos expandidos: medo, paranoia, trauma, sobrenatural...
+    "espaço sideral com família"
+    Grupo 1: espaço / ficção científica
+    Grupo 2: família / infantil
+    Resultado ideal: filmes que batem nos dois grupos.
     """
     tokens = meaningful_tokens(q)
     token_set = set(tokens)
 
     inferred_genres = set()
     expanded_terms = set(tokens)
+    intent_groups = []
 
     for rule in INTENT_RULES:
-        if token_set.intersection({normalize_text(k) for k in rule["keys"]}):
-            inferred_genres.update({normalize_text(g) for g in rule["genres"]})
-            expanded_terms.update({normalize_text(t) for t in rule["terms"]})
+        rule_keys = {normalize_text(k) for k in rule["keys"]}
+        matched_keys = sorted(token_set.intersection(rule_keys))
+
+        if matched_keys:
+            group_terms = {normalize_text(t) for t in rule["terms"] if normalize_text(t)}
+            group_genres = {normalize_text(g) for g in rule["genres"] if normalize_text(g)}
+
+            inferred_genres.update(group_genres)
+            expanded_terms.update(group_terms)
+
+            intent_groups.append(
+                {
+                    "name": rule.get("name", "_".join(matched_keys)),
+                    "matched_keys": matched_keys,
+                    "terms": sorted(term for term in group_terms if len(term) >= 3),
+                    "genres": sorted(genre for genre in group_genres if len(genre) >= 3),
+                }
+            )
 
     # Para não virar uma busca gigante e lenta.
     expanded_terms = {term for term in expanded_terms if len(term) >= 3}
@@ -223,8 +253,9 @@ def build_query_profile(q: str):
         "tokens": tokens,
         "expanded_terms": sorted(expanded_terms),
         "inferred_genres": sorted(inferred_genres),
+        "intent_groups": intent_groups,
+        "intent_group_count": len(intent_groups),
     }
-
 
 def make_like_patterns(values):
     cleaned = []
@@ -236,6 +267,232 @@ def make_like_patterns(values):
 
     return cleaned or ["%__never_match__%"]
 
+
+
+def safe_float(value, default: float = 0.0) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def row_search_text(row) -> str:
+    return normalize_text(
+        " ".join(
+            str(row.get(key) or "")
+            for key in [
+                "titulo",
+                "titulo_original",
+                "sinopse",
+                "generos_texto",
+                "personagens",
+                "funcoes",
+            ]
+        )
+    )
+
+
+def term_hits_text(text: str, terms) -> int:
+    hits = 0
+    for term in terms:
+        normalized_term = normalize_text(term)
+        if len(normalized_term) >= 3 and normalized_term in text:
+            hits += 1
+    return hits
+
+
+def attach_genres_to_results(cur, results):
+    """
+    Adiciona generos_texto nos resultados já encontrados.
+    Isso permite reordenar de forma inteligente sem mexer no frontend.
+    """
+    if not results:
+        return results
+
+    film_ids = [row["id"] for row in results if row.get("tipo") == "FILME"]
+    serie_ids = [row["id"] for row in results if row.get("tipo") == "SERIE"]
+
+    film_genres = {}
+    serie_genres = {}
+
+    if film_ids:
+        cur.execute(
+            """
+            SELECT
+                fg.filme_id AS id,
+                string_agg(DISTINCT g.nome, ' ') AS generos_texto
+            FROM filme_generos fg
+            JOIN generos g
+                ON g.id = fg.genero_id
+            WHERE fg.filme_id = ANY(%s)
+            GROUP BY fg.filme_id;
+            """,
+            (film_ids,),
+        )
+
+        film_genres = {row["id"]: row["generos_texto"] for row in cur.fetchall()}
+
+    if serie_ids:
+        cur.execute(
+            """
+            SELECT
+                sg.serie_id AS id,
+                string_agg(DISTINCT g.nome, ' ') AS generos_texto
+            FROM serie_generos sg
+            JOIN generos g
+                ON g.id = sg.genero_id
+            WHERE sg.serie_id = ANY(%s)
+            GROUP BY sg.serie_id;
+            """,
+            (serie_ids,),
+        )
+
+        serie_genres = {row["id"]: row["generos_texto"] for row in cur.fetchall()}
+
+    for row in results:
+        if row.get("tipo") == "FILME":
+            row["generos_texto"] = film_genres.get(row["id"], "")
+        elif row.get("tipo") == "SERIE":
+            row["generos_texto"] = serie_genres.get(row["id"], "")
+        else:
+            row["generos_texto"] = ""
+
+    return results
+
+
+def calculate_intent_coverage(row, profile):
+    """
+    Calcula quantos grupos de intenção o filme/série atende.
+
+    Exemplo:
+    Busca: "espaço sideral com família"
+    - A Família Addams: bate em família, mas não bate em espaço => 1 grupo
+    - Wall-E/Zathura/Lilo & Stitch: tendem a bater em espaço + família => 2 grupos
+    """
+    groups = profile.get("intent_groups") or []
+
+    if not groups:
+        return {
+            "matched_group_count": 0,
+            "total_group_count": 0,
+            "matched_group_names": [],
+            "coverage": 0.0,
+            "raw_hits": 0,
+        }
+
+    text = row_search_text(row)
+    matched_group_names = []
+    raw_hits = 0
+
+    for group in groups:
+        term_hits = term_hits_text(text, group.get("terms", []))
+        genre_hits = term_hits_text(text, group.get("genres", []))
+        group_hits = term_hits + genre_hits
+
+        if group_hits > 0:
+            matched_group_names.append(group["name"])
+            raw_hits += group_hits
+
+    total = len(groups)
+    matched = len(matched_group_names)
+
+    return {
+        "matched_group_count": matched,
+        "total_group_count": total,
+        "matched_group_names": matched_group_names,
+        "coverage": matched / total if total else 0.0,
+        "raw_hits": raw_hits,
+    }
+
+
+def rerank_results(cur, results, profile, limit: int):
+    """
+    Reordena candidatos usando cobertura de intenção.
+
+    A regra principal:
+    - quando a busca tem mais de uma intenção, resultado que bate em TODAS sobe muito;
+    - resultado que bate só em uma intenção perde força;
+    - a pontuação original da IA continua contando, mas não manda sozinha.
+    """
+    if not results:
+        return []
+
+    results = attach_genres_to_results(cur, results)
+
+    groups = profile.get("intent_groups") or []
+    total_groups = len(groups)
+
+    # Se a busca não ativou grupos de intenção, mantém a ordem original.
+    if total_groups == 0:
+        return results[:limit]
+
+    original_tokens = profile.get("tokens", [])
+
+    for row in results:
+        coverage_data = calculate_intent_coverage(row, profile)
+        base_score = safe_float(row.get("score"), 0.0)
+        popularity = min(safe_float(row.get("popularidade_tmdb"), 0.0) / 100.0, 1.0)
+        votes = min(safe_float(row.get("votos_tmdb"), 0.0) / 5000.0, 1.0)
+
+        text = row_search_text(row)
+        token_hits = term_hits_text(text, original_tokens)
+
+        matched_groups = coverage_data["matched_group_count"]
+        coverage = coverage_data["coverage"]
+
+        if total_groups >= 2:
+            # Parte mais importante: combinação de intenção.
+            # Bater em todos os grupos vale muito mais do que bater só em um.
+            intent_score = coverage * 2.40
+
+            if matched_groups == total_groups:
+                intent_score += 1.30
+
+            if matched_groups == 1:
+                intent_score -= 0.45
+
+            if matched_groups == 0:
+                intent_score -= 1.20
+        else:
+            intent_score = coverage * 1.10
+
+        lexical_score = min(token_hits / max(len(original_tokens), 1), 1.0) * 0.45
+        quality_score = popularity * 0.10 + votes * 0.08
+
+        smart_score = (
+            base_score * 0.55
+            + intent_score
+            + lexical_score
+            + quality_score
+        )
+
+        row["intent_match_count"] = matched_groups
+        row["intent_total_count"] = total_groups
+        row["intent_coverage"] = round(coverage, 3)
+        row["intent_groups_matched"] = coverage_data["matched_group_names"]
+        row["smart_score"] = round(smart_score, 6)
+
+    # Em buscas multi-intenção, tente priorizar quem bate em pelo menos 2 grupos.
+    if total_groups >= 2:
+        strong_results = [
+            row for row in results
+            if row.get("intent_match_count", 0) >= min(2, total_groups)
+        ]
+
+        if len(strong_results) >= max(3, min(limit, 6)):
+            results = strong_results
+
+    results.sort(
+        key=lambda row: (
+            row.get("intent_match_count", 0),
+            row.get("smart_score", 0),
+            safe_float(row.get("popularidade_tmdb"), 0.0),
+            safe_float(row.get("votos_tmdb"), 0.0),
+        ),
+        reverse=True,
+    )
+
+    return results[:limit]
 
 def connect_db():
     if not DATABASE_URL:
@@ -1145,24 +1402,32 @@ def search_general_textual(cur, q: str, tipo: Optional[str], limit: int):
 
 def search_general(cur, q: str, tipo: Optional[str], limit: int):
     """
-    Busca inteligente:
-    1. tenta IA semântica + regras de intenção;
-    2. se a IA falhar ou ficar indisponível, usa busca textual/por gênero;
-    3. não derruba a API.
+    Busca inteligente em duas etapas:
+
+    1. Busca candidatos com IA semântica + regras de tema/gênero.
+    2. Reordena os candidatos pela combinação de intenções.
+
+    Isso corrige o problema do "OU burro":
+    - antes: espaço OU família;
+    - agora: espaço + família recebe prioridade real.
     """
+    candidate_limit = min(max(limit * 12, 120), 240)
+
     try:
         vector = encode_text(q)
-        results, profile = search_general_semantic(cur, q, vector, tipo, limit)
+        candidates, profile = search_general_semantic(cur, q, vector, tipo, candidate_limit)
+        results = rerank_results(cur, candidates, profile, limit)
 
         if results:
-            return results, profile, "AI_SMART"
+            return results, profile, "AI_SMART_RERANKED"
 
     except Exception as error:
         print("Erro na busca semântica. Usando fallback inteligente:", error)
 
-    results, profile = search_general_textual(cur, q, tipo, limit)
+    candidates, profile = search_general_textual(cur, q, tipo, candidate_limit)
+    results = rerank_results(cur, candidates, profile, limit)
 
-    return results, profile, "TEXT_SMART_FALLBACK"
+    return results, profile, "TEXT_SMART_RERANKED"
 
 
 # =====================================================
