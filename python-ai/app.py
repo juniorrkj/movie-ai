@@ -1,5 +1,6 @@
 import os
 import re
+import threading
 from typing import Optional
 
 import psycopg2
@@ -11,15 +12,37 @@ from sentence_transformers import SentenceTransformer
 
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-load_dotenv(os.path.join(BASE_DIR, ".env"))
+load_dotenv(os.path.join(BASE_DIR, ".env"), override=True)
+
+
+def env_int(name: str, default: int) -> int:
+    value = os.getenv(name, str(default))
+
+    try:
+        return int(value)
+    except ValueError:
+        try:
+            return int(float(value))
+        except ValueError:
+            return default
+
+
+def env_float(name: str, default: float) -> float:
+    value = os.getenv(name, str(default))
+
+    try:
+        return float(value)
+    except ValueError:
+        return default
+
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 MODEL_NAME = os.getenv("MODEL_NAME", "paraphrase-multilingual-MiniLM-L12-v2")
 PYTHON_AI_HOST = os.getenv("PYTHON_AI_HOST", "0.0.0.0")
-PYTHON_AI_PORT = int(os.getenv("PYTHON_AI_PORT", "8000"))
+PYTHON_AI_PORT = env_int("PYTHON_AI_PORT", 8000)
 
-SEARCH_MIN_VOTES = int(os.getenv("SEARCH_MIN_VOTES", "20"))
-SEARCH_MIN_POPULARITY = float(os.getenv("SEARCH_MIN_POPULARITY", "1.0"))
+SEARCH_MIN_VOTES = env_int("SEARCH_MIN_VOTES", 20)
+SEARCH_MIN_POPULARITY = env_float("SEARCH_MIN_POPULARITY", 1.0)
 
 app = FastAPI(title="Movie AI Search API")
 
@@ -31,13 +54,30 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-print("Carregando modelo de IA...")
-model = SentenceTransformer(MODEL_NAME)
+model = None
+model_lock = threading.Lock()
+
+
+def get_model():
+    """
+    Carrega o modelo apenas quando a primeira busca IA for feita.
+    Isso evita crash/restart no Railway durante o boot.
+    """
+    global model
+
+    if model is None:
+        with model_lock:
+            if model is None:
+                print("Carregando modelo de IA...")
+                model = SentenceTransformer(MODEL_NAME)
+
+    return model
 
 
 def connect_db():
     if not DATABASE_URL:
-        raise RuntimeError("DATABASE_URL não encontrada. Confira o arquivo .env na raiz do projeto.")
+        raise RuntimeError("DATABASE_URL não encontrada. Confira o arquivo .env ou as Variables do Railway.")
+
     return psycopg2.connect(DATABASE_URL, cursor_factory=RealDictCursor)
 
 
@@ -46,7 +86,7 @@ def embedding_to_pgvector(embedding):
 
 
 def encode_text(text: str):
-    embedding = model.encode(text, normalize_embeddings=True)
+    embedding = get_model().encode(text, normalize_embeddings=True)
     return embedding_to_pgvector(embedding)
 
 
@@ -431,7 +471,13 @@ def search_ai(cur, q: str, vector: str, tipo: Optional[str], limit: int):
 
 @app.get("/health")
 def health():
-    return {"status": "ok"}
+    return {
+        "status": "ok",
+        "database_url_configured": bool(DATABASE_URL),
+        "model_loaded": model is not None,
+        "search_min_votes": SEARCH_MIN_VOTES,
+        "search_min_popularity": SEARCH_MIN_POPULARITY,
+    }
 
 
 @app.get("/search")
@@ -716,4 +762,9 @@ def movie_detail(movie_id: int):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run("app:app", host=PYTHON_AI_HOST, port=PYTHON_AI_PORT, reload=True)
+    uvicorn.run(
+        "app:app",
+        host=PYTHON_AI_HOST,
+        port=PYTHON_AI_PORT,
+        reload=False,
+    )
